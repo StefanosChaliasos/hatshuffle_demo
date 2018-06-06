@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>Hat Shuffle Demo</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <script type="text/javascript" src="functions.js"></script>
+        <script type="text/javascript" src="handler.js"></script>
+        <h1>Hat Shuffle Demo</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="keygen" class="btn btn-outline-primary btn-lg btn-block">Generate Key pair</button>
+                    <p>Secret key: <span id="sk"></span></p>
+                    <p>Public key: <span id="pk"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="form-row align-items-center">
+                            <div class="col-auto my-1">
+                                <label class="mr-sm-2" for="mvp">Who will win the NBA Finals MVP?</label>
+                                <select class="custom-select mr-sm-2" id="mvp" name="mvp">
+                                    <option selected>Choose...</option>
+                                    <option value="1">Lebron James</option>
+                                    <option value="2">Stephen Curry</option>
+                                    <option value="3">Kevin Durant</option>
+                                </select>
+                            </div>
+                            <div class="col-auto my-1">
+                                <button type="button" id="vote" class="btn btn-primary">Vote</button>
+                            </div>
+                        </div>
+                    </form>
+                    <p>Ciphertext: <span id="cipher"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="mixnet" class="btn btn-success btn-lg btn-block">Mix and Verify</button>
+                    <p>Verification: <span id="ver"></span></p>
+                    <p>Shuffled Ciphertexts: <pre id="shuffled"></pre></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="decrypt" class="btn btn-warning btn-lg btn-block">Decrypt</button>
+                    <p>Decrypted: <pre id="decrypted"></pre></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
