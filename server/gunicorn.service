@@ -1,0 +1,14 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=user
+Group=www-data
+WorkingDirectory=/home/user/mixnet
+Environment=LD_LIBRARY_PATH=/home/user/env/lib/python3.5/site-packages/hatshufflepy
+Environment=DJANGO_SETTINGS_MODULE=mixnet.settings
+ExecStart=/home/user/env/bin/gunicorn --workers 3 --bind unix:/home/user/mixnet/mixnet.sock mixnet.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

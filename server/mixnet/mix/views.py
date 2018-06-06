@@ -1,14 +1,20 @@
+import os
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 import json
-#  import hatshufflepy
+import hatshufflepy
+import sys
 
-crs_file = "crs.json"
-votes_file = "votes.json"
-ciphertexts_file = "ciphertexts.json"
-proofs_file = "proofs.json"
-decrypted_votes_file = "decrypted_votes.json"
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+FILES_PATH = ROOT_PATH + "/../files"
+crs_file = FILES_PATH + "/crs.json"
+votes_file = FILES_PATH + "/votes.json"
+ciphertexts_file = FILES_PATH + "/ciphertexts.json"
+proofs_file = FILES_PATH + "/proofs.json"
+decrypted_votes_file = FILES_PATH + "/decrypted_votes.json"
+pk_file = FILES_PATH + "/pk"
+sk_file = FILES_PATH + "/sk"
 
 
 class MixAPIView(APIView):
@@ -16,32 +22,31 @@ class MixAPIView(APIView):
         out = request.data
         with open(ciphertexts_file, 'w') as outfile:
             json.dump(out["ciphertexts"], outfile)
-        with open('pk', 'w') as outfile:
+        with open(pk_file, 'w') as outfile:
             json.dump(out["pk"], outfile)
         votes_number = int(out["votes_counter"])
-        #  hatshufflepy.hat_shuffle_create_crs(votes_number, crs_file)
-        #  hatshufflepy.hat_shuffle_prove(crs_file,
-        #  ciphertexts_file,
-        #  proofs_file)
+        hatshufflepy.hat_shuffle_create_crs(votes_number, crs_file, pk_file)
+        hatshufflepy.hat_shuffle_prove(crs_file,
+                                       ciphertexts_file,
+                                       proofs_file)
         with open(proofs_file) as f:
             data_json = json.load(f)
         data = data_json["Online_proof"]
         del data["consist"]
-        data['verify'] = True
-        #  data['verify'] = hatshufflepy.hat_shuffle_verify(crs_file,
-        #  ciphertexts_file,
-        #  proofs_file)
+        data['verify'] = hatshufflepy.hat_shuffle_verify(crs_file,
+                                                         ciphertexts_file,
+                                                         proofs_file)
         return Response(data, status=status.HTTP_200_OK)
 
 
 class DecryptAPIView(APIView):
     def post(self, request):
         out = request.data["secret"]
-        with open("sk", "w") as text_file:
+        with open(sk_file, "w") as text_file:
             text_file.write("%s" % out)
         #  Create votes_file in server
-        #  hatshufflepy.hat_shuffle_decrypt(crs_file, votes_file, proofs_file,
-        #  decrypted_votes_file)
+        hatshufflepy.hat_shuffle_decrypt(crs_file, votes_file, proofs_file,
+                                         decrypted_votes_file, sk_file)
         with open(decrypted_votes_file) as f:
             data = json.load(f)
         return Response(data, status=status.HTTP_200_OK)
