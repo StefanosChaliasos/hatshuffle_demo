@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Hat Shuffle Demo</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <script type="text/javascript" src="functions.js"></script>
+        <script type="text/javascript" src="benchmark.js"></script>
+        <h1>Hat Shuffle Demo</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <form>
+                      <div class="form-group">
+                        <label for="voters">Voters</label>
+                        <input type="text" class="form-control" id="voters" placeholder="Number of Voters">
+                      </div>
+                      <div class="form-group">
+                        <label for="ballots">Ballots</label>
+                        <input type="text" class="form-control" id="ballots" placeholder="Possible Ballots">
+                      </div>
+                      <button type="button" id="set" class="btn btn-primary btn-lg btn-block">Set</button>
+                    </form>
+                </div>
+                <div class="col">
+
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="keygen" class="btn btn-outline-primary btn-lg btn-block">Generate Key pair</button>
+                    <p>Time: <span id="keys"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="mixnet" class="btn btn-success btn-lg btn-block">Voting (client) - Mix - Verify (Server side)</button>
+                    <p>Time: <span id="mix-verify"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="create_table" class="btn btn-secondary btn-lg btn-block">Create Lookup Table</button>
+                    <p>Size: <span id="table"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="decrypt_server" class="btn btn-warning btn-lg btn-block">Decrypt Server</button>
+                    <p>Time: <span id="decrypted_server"></span></p>
+                </div>
+                <div class="col">
+                    <button type="button" id="decrypt_client" class="btn btn-info btn-lg btn-block">Decrypt Client</button>
+                    <p>Time: <span id="decrypted_client"></span></p>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
