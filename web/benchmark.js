@@ -83,7 +83,7 @@ $(document).ready(function() {
     });
     $('#create_table').click(function() {
         t0 = performance.now();
-        table = Module.create_table(3);
+        table = Module.create_table(ballots);
         t1 = performance.now();
         $("#table").text("" + (t1 - t0) + " miliseconds");
     });
