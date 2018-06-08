@@ -58,7 +58,7 @@ $(document).ready(function() {
         serialized["votes_counter"] = votes_counter;
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'http://127.0.0.1:8000/api/mix/', // the url where we want to POST
+            url         : 'https://snf-824318.vm.okeanos.grnet.gr/api/mix/', // the url where we want to POST
             data        : JSON.stringify(serialized), // our data object
             contentType : 'application/json',
             dataType    : 'json', // what type of data do we expect back from the server
@@ -77,7 +77,7 @@ $(document).ready(function() {
         serialized_secret["secret"] = sk;
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'http://127.0.0.1:8000/api/decrypt/', // the url where we want to POST
+            url         : 'https://snf-824318.vm.okeanos.grnet.gr/api/decrypt/', // the url where we want to POST
             data        : JSON.stringify(serialized_secret), // our data object
             contentType : 'application/json',
             dataType    : 'json', // what type of data do we expect back from the server
