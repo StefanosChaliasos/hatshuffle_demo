@@ -11,13 +11,9 @@ function decrypt() {
     let vector_ciphers = new Module.Ciphertexts();
     for (var property1 in shuffled_ciphertexts) {
         for (var property2 in shuffled_ciphertexts[property1]) {
-            // console.log(shuffled_ciphertexts[property1][property2][0]);
             vector_ciphers.push_back(shuffled_ciphertexts[property1][property2][0]);
-            // console.log(shuffled_ciphertexts[property1][property2][1]);
             vector_ciphers.push_back(shuffled_ciphertexts[property1][property2][1]);
-            // console.log(shuffled_ciphertexts[property1][property2][2]);
             vector_ciphers.push_back(shuffled_ciphertexts[property1][property2][2]);
-            // console.log(shuffled_ciphertexts[property1][property2][3]);
             vector_ciphers.push_back(shuffled_ciphertexts[property1][property2][3]);
         }
     }

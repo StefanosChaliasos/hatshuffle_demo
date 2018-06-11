@@ -28,6 +28,8 @@ $(document).ready(function() {
     $('#set').click(function() {
         voters_number = + $('#voters').val();
         ballots_number =  +  $('#ballots').val();
+        $("#nvoters").text("" + voters_number);
+        $("#nballots").text("" + ballots_number);
     });
     $('#keygen').click(function() {
         t0 = performance.now();
@@ -41,32 +43,18 @@ $(document).ready(function() {
     });
     $('#mixnet').click(function() {
         t0 = performance.now();
-        // voting
-        for (i = 0; i < voters_number; i++) {
-            choice = "" + (Math.floor(Math.random() * ballots_number));
-            cipher = Module.vote(pk, choice);
-            cipher = cipher.split(',');
-            c1 = [cipher[0].split(' ')[1], cipher[0].split(' ')[2],
-                  cipher[0].split(' ')[3], cipher[0].split(' ')[4]];
-            c2 = [cipher[1].split(' ')[1], cipher[1].split(' ')[2],
-                  cipher[1].split(' ')[3], cipher[1].split(' ')[4]];
-            ciphertext = [c1, c2];
-            ciphertexts.push(ciphertext);
-            votes_counter++;
-        }
         // mixnet
         serialized_ciphers = {};
         serialized_pk = {};
         serialized = {};
         serialized_pk["pk"] = [pk.split(' ')[1], pk.split(' ')[2],
                                pk.split(' ')[3], pk.split(' ')[4]];
-        serialized_ciphers["ciphertexts"] = ciphertexts;
-        serialized["ciphertexts"] = serialized_ciphers;
         serialized["pk"] = serialized_pk;
-        serialized["votes_counter"] = votes_counter;
+        serialized["voters_number"] = voters_number;
+        serialized["ballots_number"] = ballots_number;
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'https://snf-824318.vm.okeanos.grnet.gr/api/mix/', // the url where we want to POST
+            url         : 'https://snf-824318.vm.okeanos.grnet.gr/api/votemix/', // the url where we want to POST
             data        : JSON.stringify(serialized), // our data object
             contentType : 'application/json',
             dataType    : 'json', // what type of data do we expect back from the server
