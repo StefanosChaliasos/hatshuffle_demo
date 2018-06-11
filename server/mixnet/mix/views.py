@@ -39,6 +39,29 @@ class MixAPIView(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
+class VoteMixAPIView(APIView):
+    def post(self, request):
+        out = request.data
+        with open(pk_file, 'w') as outfile:
+            json.dump(out["pk"], outfile)
+        votes_number = int(out["voters_number"])
+        ballots_number = int(out["ballots_number"])
+        hatshufflepy.hat_shuffle_create_crs(votes_number, crs_file, pk_file)
+        hatshufflepy.hat_shuffle_demo_voting(votes_number, ballots_number,
+                                             pk_file, votes_file)
+        hatshufflepy.hat_shuffle_encrypt(crs_file, votes_file,
+                                         ciphertexts_file)
+        hatshufflepy.hat_shuffle_prove(crs_file, ciphertexts_file, proofs_file)
+        with open(proofs_file) as f:
+            data_json = json.load(f)
+        data = data_json["Online_proof"]
+        del data["consist"]
+        data['verify'] = hatshufflepy.hat_shuffle_verify(crs_file,
+                                                         ciphertexts_file,
+                                                         proofs_file)
+        return Response(data, status=status.HTTP_200_OK)
+
+
 class DecryptAPIView(APIView):
     def post(self, request):
         out = request.data["secret"]
