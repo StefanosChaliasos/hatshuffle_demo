@@ -21,6 +21,7 @@ function decrypt() {
         }
     }
     sk_neg = "-" + sk
+    console.log(vector_ciphers);
     return Module.decrypt(table, vector_ciphers, sk_neg);
 }
 
@@ -58,7 +59,7 @@ $(document).ready(function() {
             data        : JSON.stringify(serialized), // our data object
             contentType : 'application/json',
             dataType    : 'json', // what type of data do we expect back from the server
-            async       : true,
+            async       : false,
             encode      : true
         }).done(function(data) {
             json_ciphers = data;
@@ -85,7 +86,7 @@ $(document).ready(function() {
             data        : JSON.stringify(serialized_secret), // our data object
             contentType : 'application/json',
             dataType    : 'json', // what type of data do we expect back from the server
-            async       : true,
+            async       : false,
             encode      : true
         }).done(function(data) {
             json_votes = data;
@@ -101,6 +102,7 @@ $(document).ready(function() {
         for (i = 0; i < decrypted_votes.size(); i++) {
             d_votes += "" + decrypted_votes.get(i) + " ";
         }
+        console.log(d_votes);
         t1 = performance.now();
         $("#decrypted_client").html("" + (t1 - t0) + " miliseconds");
     });
